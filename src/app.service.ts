@@ -19,7 +19,7 @@ export class AppService {
         .fromFile(dataFilePath)
         .then(async (source: VaccineSummaryEntity[]) => {
           // console.log(typeof(source));
-          for (var i = 0; i < source.length - 332340; i++) {
+          for (var i = 0; i < source.length; i++) {
             const date = source[i].YearWeekISO;
             console.log(dayjs(date).toISOString);
             const newEntity = new VaccineSummaryEntity();

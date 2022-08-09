@@ -18,10 +18,3 @@ import { CovidModule } from './covid/covid.module';
   providers: [AppService],
 })
 export class AppModule {}
-// , {
-//   auth: {
-//     username: process.env.DATABASE_USERNAME,
-//     password: process.env.DATABASE_PASSWORD,
-//   },
-//   dbName: process.env.DATABASE_NAME
-// }
