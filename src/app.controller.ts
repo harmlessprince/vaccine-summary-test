@@ -5,8 +5,17 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
+  @Get()
+  getHello(): string {
+    return 'Hello world';
+  }
   @Get('/seed')
   async seedData() {
-      await this.appService.seedDatabase()
+    const response = await this.appService.seedDatabase();
+    return {
+      success: true,
+      message: 'Database seeded successfully with ' + response.total + ' data',
+      total: response.total,
+    };
   }
 }

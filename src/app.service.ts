@@ -42,10 +42,6 @@ export class AppService {
     } else {
       throw new NotFoundException('Csv file not found');
     }
-    return {
-      success: true,
-      message: 'Database seeded successfully',
-      total: arrayToInsert.length,
-    };
+    return { total: arrayToInsert.length };
   }
 }
