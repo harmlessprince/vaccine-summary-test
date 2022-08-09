@@ -4,7 +4,11 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 @Schema()
 class CovidDocument {
   @Prop({
-    index: true
+    index: true,
+  })
+  YearWeekDate: Date;
+  @Prop({
+    index: true,
   })
   YearWeekISO: string;
 
@@ -27,7 +31,7 @@ class CovidDocument {
   UnknownDose: number;
 
   @Prop({
-    index: true
+    index: true,
   })
   NumberDosesReceived: number;
 
@@ -41,7 +45,7 @@ class CovidDocument {
   Population: number;
 
   @Prop({
-    index: true
+    index: true,
   })
   ReportingCountry: string;
 

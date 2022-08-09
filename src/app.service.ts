@@ -27,17 +27,19 @@ export class AppService {
         .fromFile(dataFilePath)
         .then(async (source: CovidDataDto[]) => {
           //looping through all the data extracted from the csv file
-          for (var i = 0; i < source.length - 332340; i++) {
+          // - 332340
+          for (var i = 0; i < source.length; i++) {
             const newEntity = new CovidDataDto();
             const { year, week } = getYearAndWeekFromIsoString(
               source[i].YearWeekISO,
             );
             const extractedDate = getDateFromWeek(year, week);
-            console.log(
-              extractedDate,
-              { year, week },
-              getYearAndWeekFromDate(extractedDate),
-            );
+            // console.log(
+            //   extractedDate,
+            //   { year, week },
+            //   getYearAndWeekFromDate(extractedDate),
+            // );
+            newEntity.YearWeekDate = extractedDate;
             newEntity.YearWeekISO = source[i].YearWeekISO;
             newEntity.FirstDose = source[i].FirstDose;
             newEntity.FirstDoseRefused = source[i].FirstDoseRefused;
