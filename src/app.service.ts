@@ -3,7 +3,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import * as fs from 'fs';
 import { CovidRepository } from './covid/covid.repository';
 const csvtojsonV2 = require('csvtojson/v2');
-import * as dayjs from 'dayjs'
+import { CovidDataDto } from './covid/covid.data.dto';
 @Injectable()
 export class AppService {
   constructor(private readonly covidRepository: CovidRepository) {}
@@ -17,12 +17,9 @@ export class AppService {
     if (fs.existsSync(dataFilePath)) {
       await csvtojsonV2()
         .fromFile(dataFilePath)
-        .then(async (source: VaccineSummaryEntity[]) => {
-          // console.log(typeof(source));
+        .then(async (source: CovidDataDto[]) => {
           for (var i = 0; i < source.length; i++) {
-            const date = source[i].YearWeekISO;
-            console.log(dayjs(date).toISOString);
-            const newEntity = new VaccineSummaryEntity();
+            const newEntity = new CovidDataDto();
             newEntity.YearWeekISO = source[i].YearWeekISO;
             newEntity.FirstDose = source[i].FirstDose;
             newEntity.FirstDoseRefused = source[i].FirstDoseRefused;
@@ -45,23 +42,10 @@ export class AppService {
     } else {
       throw new NotFoundException('Csv file not found');
     }
+    return {
+      success: true,
+      message: 'Database seeded successfully',
+      total: arrayToInsert.length,
+    };
   }
-}
-
-class VaccineSummaryEntity {
-  YearWeekISO: string;
-  FirstDose: number;
-  FirstDoseRefused: string;
-  SecondDose: number;
-  DoseAdditional1: number;
-  DoseAdditional2: number;
-  UnknownDose: number;
-  NumberDosesReceived: number;
-  NumberDosesExported: number;
-  Region: string;
-  Population: number;
-  ReportingCountry: string;
-  TargetGroup: string;
-  Vaccine: string;
-  Denominator: number;
 }
