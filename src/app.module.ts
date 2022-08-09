@@ -18,3 +18,15 @@ import { CovidModule } from './covid/covid.module';
   providers: [AppService],
 })
 export class AppModule {}
+//1. Initialized project
+//2. Set up env variable
+//3. Connect app to database
+//4. Read data from csv file
+//5. Set schema to save data into database
+//5. Insert data from csv into the database
+//6. Construct Filter DTo
+//7. Construct Output dto
+//8. WWrite query for filtering database
+//9. format it to to output dto
+//10. Write tests
+//11. Dockerize app

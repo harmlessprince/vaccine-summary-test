@@ -1,9 +1,15 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import * as fs from 'fs';
+import * as moment from 'moment';
 import { CovidRepository } from './covid/covid.repository';
 const csvtojsonV2 = require('csvtojson/v2');
 import { CovidDataDto } from './covid/covid.data.dto';
+import {
+  getDateFromWeek,
+  getYearAndWeekFromDate,
+  getYearAndWeekFromIsoString,
+} from './utils/helper';
 @Injectable()
 export class AppService {
   constructor(private readonly covidRepository: CovidRepository) {}
@@ -12,14 +18,26 @@ export class AppService {
   }
 
   async seedDatabase() {
+    //construct file path
     const dataFilePath = __dirname + '/data/data.csv';
     var arrayToInsert = [];
+    //check if file exist, otherwise throw not found error
     if (fs.existsSync(dataFilePath)) {
       await csvtojsonV2()
         .fromFile(dataFilePath)
         .then(async (source: CovidDataDto[]) => {
-          for (var i = 0; i < source.length; i++) {
+          //looping through all the data extracted from the csv file
+          for (var i = 0; i < source.length - 332340; i++) {
             const newEntity = new CovidDataDto();
+            const { year, week } = getYearAndWeekFromIsoString(
+              source[i].YearWeekISO,
+            );
+            const extractedDate = getDateFromWeek(year, week);
+            console.log(
+              extractedDate,
+              { year, week },
+              getYearAndWeekFromDate(extractedDate),
+            );
             newEntity.YearWeekISO = source[i].YearWeekISO;
             newEntity.FirstDose = source[i].FirstDose;
             newEntity.FirstDoseRefused = source[i].FirstDoseRefused;
@@ -37,6 +55,7 @@ export class AppService {
             newEntity.Denominator = source[i].Denominator;
             arrayToInsert.push(newEntity);
           }
+          //pass constructed data to covid repository
           await this.covidRepository.createMany(arrayToInsert);
         });
     } else {
