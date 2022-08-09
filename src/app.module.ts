@@ -1,7 +1,8 @@
-import { HttpModule } from '@nestjs/axios';
+
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { CsvModule } from 'nest-csv-parser';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -9,7 +10,7 @@ import { AppService } from './app.service';
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRoot(process.env.DATABASE_URL,  { useNewUrlParser: true }),
-    HttpModule
+    CsvModule
   ],
   controllers: [AppController],
   providers: [AppService],
