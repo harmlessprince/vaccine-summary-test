@@ -7,4 +7,8 @@ import { Covid } from './covid';
 export class CovidRepository {
     constructor(@InjectModel('Covid') private readonly covidModel: Model<Covid>){}
 
+
+   async  createMany(covidData: any []){
+        await this.covidModel.insertMany(covidData)
+    }
 }

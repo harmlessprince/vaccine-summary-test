@@ -4,7 +4,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 @Schema()
 class CovidDocument {
   @Prop()
-  YearWeekISO: Date;
+  YearWeekISO: string;
 
   @Prop()
   FirstDose: number;
