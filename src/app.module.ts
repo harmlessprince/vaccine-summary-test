@@ -5,12 +5,14 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { CsvModule } from 'nest-csv-parser';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { CovidModule } from './covid/covid.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRoot(process.env.DATABASE_URL,  { useNewUrlParser: true }),
-    CsvModule
+    CsvModule,
+    CovidModule
   ],
   controllers: [AppController],
   providers: [AppService],
