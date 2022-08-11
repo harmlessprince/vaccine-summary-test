@@ -15,6 +15,8 @@ const dateRegex = /^([1-9]{4})+-W(5[0-3]|[1-4][0-9]|[1-9])$/;
 const regexMessage =
   "Year must be 4 digit number, followed by '-', follow by 'W' and then week number between 1 to 53. eg 2020-W10";
 export class CovidDataFilterDto {
+
+
   @IsValidISOWeekDate({ message: regexMessage })
   @IsOptional()
   dateFrom?: string;
@@ -35,5 +37,5 @@ export class CovidDataFilterDto {
   @IsPositive()
   @IsNumber()
   @IsOptional()
-  range?: number;
+  range?: number = 5;
 }

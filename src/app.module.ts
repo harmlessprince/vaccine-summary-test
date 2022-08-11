@@ -24,7 +24,7 @@ export class AppModule {}
 //4. Read data from csv file done
 //5. Set schema to save data into database done 
 //5. Insert data from csv into the database done
-//6. Construct Filter DTo 
+//6. Construct Filter DTo Done
 //7. Construct Output dto
 //8. WWrite query for filtering database
 //9. format it to to output dto

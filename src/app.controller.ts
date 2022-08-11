@@ -25,7 +25,8 @@ export class AppController {
       new ValidationPipe({
         transform: true,
         transformOptions: { enableImplicitConversion: true },
-        whitelist: true
+        whitelist: true,
+        forbidUnknownValues: true,
       }),
     )
     filter: CovidDataFilterDto,
