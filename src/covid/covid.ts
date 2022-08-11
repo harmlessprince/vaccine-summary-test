@@ -21,7 +21,7 @@ class CovidDocument {
   @Prop()
   SecondDose: number;
 
-  @Prop()
+  @Prop() 
   DoseAdditional1: number;
 
   @Prop()

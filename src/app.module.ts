@@ -18,13 +18,13 @@ import { CovidModule } from './covid/covid.module';
   providers: [AppService],
 })
 export class AppModule {}
-//1. Initialized project
-//2. Set up env variable
-//3. Connect app to database
-//4. Read data from csv file
-//5. Set schema to save data into database
-//5. Insert data from csv into the database
-//6. Construct Filter DTo
+//1. Initialized project done
+//2. Set up env variable done
+//3. Connect app to database done
+//4. Read data from csv file done
+//5. Set schema to save data into database done 
+//5. Insert data from csv into the database done
+//6. Construct Filter DTo 
 //7. Construct Output dto
 //8. WWrite query for filtering database
 //9. format it to to output dto

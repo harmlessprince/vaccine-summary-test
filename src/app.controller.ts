@@ -18,4 +18,6 @@ export class AppController {
       total: response.total,
     };
   }
+
+  vaccineSummary(: type) {}
 }
