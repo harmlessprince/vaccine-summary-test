@@ -45,7 +45,6 @@ export class CovidRepository {
       'week',
     );
     const chunks = Math.ceil(numberOfWeeksBetweenDates / range);
-    // console.log(numberOfWeeksBetweenDates);
     var covidDataOutput: CovidDataOutputDto[] = [];
     let weekStart = null;
     let weekEnd = null;
@@ -84,26 +83,28 @@ export class CovidRepository {
     }
     if (filter.sort !== null && filter.sort !== undefined) {
       const sortValue: string = filter.sort;
-      if (sortValue.startsWith('NumberDosesReceived')) {
-        if (sortValue.endsWith('[descending]')) {
-          this.sortByNumberDosesReceived(covidDataOutput, OrderBy.DESC);
-        }
-        if (sortValue.endsWith('[ascending]')) {
-          this.sortByNumberDosesReceived(covidDataOutput, OrderBy.ASC);
-        }
-      }
-      if (sortValue.startsWith('weekStart')) {
-        if (sortValue.endsWith('[descending]')) {
-          this.sortByWeekStart(covidDataOutput, OrderBy.DESC);
-        }
-        if (sortValue.endsWith('[ascending]')) {
-          this.sortByWeekStart(covidDataOutput, OrderBy.ASC);
-        }
-      }
+      this.sortData(sortValue, covidDataOutput);
     }
     return covidDataOutput;
   }
-
+  sortData(sortValue: string, covidDataOutput) {
+    if (sortValue.startsWith('NumberDosesReceived')) {
+      if (sortValue.endsWith('[descending]')) {
+        this.sortByNumberDosesReceived(covidDataOutput, OrderBy.DESC);
+      }
+      if (sortValue.endsWith('[ascending]')) {
+        this.sortByNumberDosesReceived(covidDataOutput, OrderBy.ASC);
+      }
+    }
+    if (sortValue.startsWith('weekStart')) {
+      if (sortValue.endsWith('[descending]')) {
+        this.sortByWeekStart(covidDataOutput, OrderBy.DESC);
+      }
+      if (sortValue.endsWith('[ascending]')) {
+        this.sortByWeekStart(covidDataOutput, OrderBy.ASC);
+      }
+    }
+  }
   sortByNumberDosesReceived(
     covidOutputData: CovidDataOutputDto[],
     orderBy: string,
