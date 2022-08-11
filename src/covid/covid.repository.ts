@@ -93,7 +93,12 @@ export class CovidRepository {
         }
       }
       if (sortValue.startsWith('weekStart')) {
-        console.log('filter by weekStart');
+        if (sortValue.endsWith('[descending]')) {
+          this.sortByWeekStart(covidDataOutput, OrderBy.DESC);
+        }
+        if (sortValue.endsWith('[ascending]')) {
+          this.sortByWeekStart(covidDataOutput, OrderBy.ASC);
+        }
       }
     }
     return covidDataOutput;
@@ -110,15 +115,19 @@ export class CovidRepository {
       if (orderBy == OrderBy.DESC) {
         return Number(b.NumberDosesReceived) - Number(a.NumberDosesReceived);
       }
+      return 0;
     });
   }
-  sortByWeekStart(covidOutputData: CovidDataOutputDto[]) {
-    var ascending = covidOutputData.sort(
-      (a, b) => Number(a.NumberDosesReceived) - Number(b.NumberDosesReceived),
-    );
-    var descending = covidOutputData.sort(
-      (a, b) => Number(b.NumberDosesReceived) - Number(a.NumberDosesReceived),
-    );
+  sortByWeekStart(covidOutputData: CovidDataOutputDto[], orderBy: string) {
+    return covidOutputData.sort((a, b) => {
+      if (orderBy == OrderBy.ASC) {
+        return a.weekStart.localeCompare(b.weekStart);
+      }
+      if (orderBy == OrderBy.DESC) {
+        return a.weekStart.localeCompare(b.weekStart) * -1;
+      }
+      return 0;
+    });
   }
 }
 enum OrderBy {
