@@ -14,7 +14,7 @@ export class CovidDataFilterDto {
     message: regexMessage,
   })
   @IsOptional()
-  dateFro?: string;
+  dateFrom?: string;
 
   @Matches(dateRegex, {
     message: regexMessage,
@@ -25,7 +25,7 @@ export class CovidDataFilterDto {
   @IsString()
   @IsOptional()
   c?: string;
-  
+
   @IsPositive()
   @IsNumber()
   @IsOptional()
