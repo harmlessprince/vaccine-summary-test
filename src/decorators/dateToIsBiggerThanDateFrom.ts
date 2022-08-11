@@ -7,13 +7,13 @@ export function DateToIsBiggerThanDateFrom(property: string, validationOptions?:
             propertyName,
             options: validationOptions,
             constraints: [property],
-            validator: MatchConstraint,
+            validator: DateToIsBiggerThanDateFromConstraint,
         });
     };
 }
 
 @ValidatorConstraint({name: 'DateToIsBiggerThanDateFrom'})
-export class MatchConstraint implements ValidatorConstraintInterface {
+export class DateToIsBiggerThanDateFromConstraint implements ValidatorConstraintInterface {
 
     validate(value: any, args: ValidationArguments) {
         const [relatedPropertyName] = args.constraints;

@@ -1,5 +1,6 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Query, ValidationPipe } from '@nestjs/common';
 import { AppService } from './app.service';
+import { CovidDataFilterDto } from './covid/covid.data.filter.dto';
 
 @Controller()
 export class AppController {
@@ -18,6 +19,17 @@ export class AppController {
       total: response.total,
     };
   }
-
-  vaccineSummary(: type) {}
+  @Get('/vaccine-summary')
+  vaccineSummary(
+    @Query(
+      new ValidationPipe({
+        transform: true,
+        transformOptions: { enableImplicitConversion: true },
+        whitelist: true
+      }),
+    )
+    filter: CovidDataFilterDto,
+  ) {
+    console.log(filter);
+  }
 }
