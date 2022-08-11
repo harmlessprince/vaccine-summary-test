@@ -1,13 +1,11 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import * as fs from 'fs';
-import * as moment from 'moment';
 import { CovidRepository } from './covid/covid.repository';
 const csvtojsonV2 = require('csvtojson/v2');
 import { CovidDataDto } from './covid/covid.data.dto';
 import {
   getDateFromWeek,
-  getYearAndWeekFromDate,
   getYearAndWeekFromIsoString,
 } from './utils/helper';
 @Injectable()

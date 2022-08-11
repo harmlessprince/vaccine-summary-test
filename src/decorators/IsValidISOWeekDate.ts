@@ -22,6 +22,6 @@ export function IsValidISOWeekDate(validationOptions?: ValidationOptions) {
 }
 
 function useRegex(isoWeekDate: string): boolean {
-  const regex = /^([0-9]{4})+-W(5[0-3]|[1-4][0-9]|[1-9])$/g;
+  const regex = /^([0-9]{4})+-W(5[0-3]|[1-4][0-9]|0[0-9])$/g;
   return regex.test(isoWeekDate);
 }
