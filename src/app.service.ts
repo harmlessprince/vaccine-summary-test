@@ -4,15 +4,16 @@ import * as fs from 'fs';
 import { CovidRepository } from './covid/covid.repository';
 const csvtojsonV2 = require('csvtojson/v2');
 import { CovidDataDto } from './covid/covid.data.dto';
-import {
-  getDateFromWeek,
-  getYearAndWeekFromIsoString,
-} from './utils/helper';
+import { getDateFromWeek, getYearAndWeekFromIsoString } from './utils/helper';
+import { CovidDataFilterDto } from './covid/covid.data.filter.dto';
 @Injectable()
 export class AppService {
   constructor(private readonly covidRepository: CovidRepository) {}
   getHello(): string {
     return 'Hello World!';
+  }
+  async getCovidDataSummary(filter: CovidDataFilterDto) {
+    return await this.covidRepository.findCovidData(filter);
   }
 
   async seedDatabase() {

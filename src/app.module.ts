@@ -25,7 +25,7 @@ export class AppModule {}
 //5. Set schema to save data into database done 
 //5. Insert data from csv into the database done
 //6. Construct Filter DTo Done
-//7. Construct Output dto
+//7. Construct Output dto Done
 //8. WWrite query for filtering database
 //9. format it to to output dto
 //10. Write tests

@@ -16,7 +16,7 @@ export const getYearAndWeekFromIsoString = (dateString: string) => {
   };
 };
 export const getYearAndWeekFromDate = (date: Date) => {
-  const week = moment(date).format('W');
+  const week = moment(date).format('WW');
   const year = moment(date).format('Y');
   return {
     year,
@@ -26,6 +26,9 @@ export const getYearAndWeekFromDate = (date: Date) => {
 };
 
 export const convertISoWeekStringDateToDate = (dateString: string) => {
-  const { year, week } = getYearAndWeekFromIsoString(dateString);
-  return getDateFromWeek(year, week);
+  if (dateString !== null || dateString !== undefined) {
+    const { year, week } = getYearAndWeekFromIsoString(dateString);
+    return getDateFromWeek(year, week);
+  }
+  return null;
 };

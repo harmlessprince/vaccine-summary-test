@@ -20,7 +20,7 @@ export class AppController {
     };
   }
   @Get('/vaccine-summary')
-  vaccineSummary(
+  async vaccineSummary(
     @Query(
       new ValidationPipe({
         transform: true,
@@ -31,6 +31,7 @@ export class AppController {
     )
     filter: CovidDataFilterDto,
   ) {
-    console.log(filter);
+    const response = await this.appService.getCovidDataSummary(filter);
+    return { summary: response };
   }
 }
