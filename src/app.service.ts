@@ -13,7 +13,6 @@ export class AppService {
     return 'Hello World!';
   }
   async getCovidDataSummary(filter: CovidDataFilterDto) {
-    console.log(filter);
     return await this.covidRepository.findCovidData(filter);
   }
 

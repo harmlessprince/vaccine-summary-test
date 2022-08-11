@@ -26,7 +26,7 @@ export class AppModule {}
 //5. Insert data from csv into the database done
 //6. Construct Filter DTo Done
 //7. Construct Output dto Done
-//8. WWrite query for filtering database
-//9. format it to to output dto
+//8. WWrite query for filtering database done
+//9. format it to to output dto done
 //10. Write tests
 //11. Dockerize app

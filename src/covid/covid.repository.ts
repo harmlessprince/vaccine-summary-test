@@ -60,6 +60,7 @@ export class CovidRepository {
         ReportingCountry: c,
         YearWeekDate: { $gte: weekStart, $lte: weekEnd },
       };
+
       const response = await this.covidModel
         .aggregate([
           {
@@ -73,6 +74,7 @@ export class CovidRepository {
           },
         ])
         .exec();
+
       if (response[0]?.NumberDosesReceived > 0) {
         covidDataOutput.push({
           weekStart: getYearAndWeekFromDate(weekStart).isoString,
@@ -116,6 +118,7 @@ export class CovidRepository {
       if (orderBy == OrderBy.DESC) {
         return Number(b.NumberDosesReceived) - Number(a.NumberDosesReceived);
       }
+      //if strings are equal
       return 0;
     });
   }
@@ -127,6 +130,7 @@ export class CovidRepository {
       if (orderBy == OrderBy.DESC) {
         return a.weekStart.localeCompare(b.weekStart) * -1;
       }
+      //if strings are equal
       return 0;
     });
   }
