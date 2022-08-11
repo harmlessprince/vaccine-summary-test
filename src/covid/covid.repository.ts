@@ -45,8 +45,8 @@ export class CovidRepository {
       'week',
     );
     const chunks = Math.ceil(numberOfWeeksBetweenDates / range);
-    console.log(numberOfWeeksBetweenDates);
-    let covidDataOutput: CovidDataOutputDto[] = [];
+    // console.log(numberOfWeeksBetweenDates);
+    var covidDataOutput: CovidDataOutputDto[] = [];
     let weekStart = null;
     let weekEnd = null;
     for (let index = 0; index < chunks; index++) {
@@ -56,7 +56,7 @@ export class CovidRepository {
         weekStart = weekEnd;
       }
       weekEnd = moment(new Date(weekStart)).add(range, 'w').toDate();
-      console.log(weekEnd, weekStart);
+      // console.log(weekEnd, weekStart);
       const queryObject = {
         ReportingCountry: c,
         YearWeekDate: { $gte: weekStart, $lte: weekEnd },
@@ -72,9 +72,6 @@ export class CovidRepository {
               NumberDosesReceived: { $sum: '$NumberDosesReceived' },
             },
           },
-          {
-            $sort: { NumberDosesReceived: -1 },
-          },
         ])
         .exec();
       if (response[0]?.NumberDosesReceived > 0) {
@@ -85,6 +82,46 @@ export class CovidRepository {
         });
       }
     }
+    if (filter.sort !== null && filter.sort !== undefined) {
+      const sortValue: string = filter.sort;
+      if (sortValue.startsWith('NumberDosesReceived')) {
+        if (sortValue.endsWith('[descending]')) {
+          this.sortByNumberDosesReceived(covidDataOutput, OrderBy.DESC);
+        }
+        if (sortValue.endsWith('[ascending]')) {
+          this.sortByNumberDosesReceived(covidDataOutput, OrderBy.ASC);
+        }
+      }
+      if (sortValue.startsWith('weekStart')) {
+        console.log('filter by weekStart');
+      }
+    }
     return covidDataOutput;
   }
+
+  sortByNumberDosesReceived(
+    covidOutputData: CovidDataOutputDto[],
+    orderBy: string,
+  ) {
+    return covidOutputData.sort((a, b) => {
+      if (orderBy == OrderBy.ASC) {
+        return Number(a.NumberDosesReceived) - Number(b.NumberDosesReceived);
+      }
+      if (orderBy == OrderBy.DESC) {
+        return Number(b.NumberDosesReceived) - Number(a.NumberDosesReceived);
+      }
+    });
+  }
+  sortByWeekStart(covidOutputData: CovidDataOutputDto[]) {
+    var ascending = covidOutputData.sort(
+      (a, b) => Number(a.NumberDosesReceived) - Number(b.NumberDosesReceived),
+    );
+    var descending = covidOutputData.sort(
+      (a, b) => Number(b.NumberDosesReceived) - Number(a.NumberDosesReceived),
+    );
+  }
+}
+enum OrderBy {
+  ASC = 'ASC',
+  DESC = 'DESC',
 }

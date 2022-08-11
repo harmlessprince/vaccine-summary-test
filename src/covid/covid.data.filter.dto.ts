@@ -28,4 +28,7 @@ export class CovidDataFilterDto {
   @IsPositive()
   @IsNumber()
   range: number;
+
+  @IsOptional()
+  sort?: string;
 }
