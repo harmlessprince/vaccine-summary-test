@@ -58,7 +58,7 @@ export class CovidRepository {
       // console.log(weekEnd, weekStart);
       const queryObject = {
         ReportingCountry: c,
-        YearWeekDate: { $gte: weekStart, $lte: weekEnd },
+        YearWeekDate: { $gte: weekStart, $lt: weekEnd },
       };
 
       const response = await this.covidModel
