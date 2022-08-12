@@ -1,4 +1,10 @@
-import { Controller, Get, Query, ValidationPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  InternalServerErrorException,
+  Query,
+  ValidationPipe,
+} from '@nestjs/common';
 import { AppService } from './app.service';
 import { CovidDataFilterDto } from './covid/covid.data.filter.dto';
 import { CovidDataOutputDto } from './covid/covid.data.output.dto';
@@ -17,12 +23,16 @@ export class AppController {
     message: string;
     total: number;
   }> {
-    const {total} = await this.appService.seedDatabase();
-    return {
-      success: true,
-      message: 'Database seeded successfully with ' + total + ' data',
-      total: total,
-    };
+    try {
+      const { total } = await this.appService.seedDatabase();
+      return {
+        success: true,
+        message: 'Database seeded successfully with ' + total + ' data',
+        total: total,
+      };
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
   }
   @Get('/vaccine-summary')
   async vaccineSummary(

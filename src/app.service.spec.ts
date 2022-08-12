@@ -1,3 +1,4 @@
+import { NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppService } from './app.service';
 import { CovidDataFilterDto } from './covid/covid.data.filter.dto';
@@ -6,7 +7,11 @@ import {
   CovidDataOutputStub,
   CovidDataStub,
 } from './test-stubs/covid.data.stubs';
+// import csvtojsonV2 from 'csvtojson/v2';
+const fs = require('fs');
 
+jest.mock('fs');
+// jest.mock('csvtojsonV2')
 const mockCovidService = () => ({
   createMany: jest.fn(),
 
@@ -26,6 +31,7 @@ describe('AppService', () => {
 
     appService = app.get<AppService>(AppService);
     covidService = app.get<CovidService>(CovidService);
+    jest.resetModules();
   });
 
   it('AppService should be defined', () => {
@@ -47,9 +53,11 @@ describe('AppService', () => {
       expect(result).toMatchObject([stubValue]);
     });
     it('should should send array of covid data as output', async () => {
-        const filter = new CovidDataFilterDto();
-        expect(await appService.getCovidDataSummary(filter)).toMatchObject([CovidDataOutputStub()]);
-      });
+      const filter = new CovidDataFilterDto();
+      expect(await appService.getCovidDataSummary(filter)).toMatchObject([
+        CovidDataOutputStub(),
+      ]);
+    });
   });
   describe('seedDatabase', () => {
     it('calls createMany from covid service', async () => {
@@ -59,6 +67,19 @@ describe('AppService', () => {
       const result = await covidService.createMany([CovidDataStub()]);
       expect(covidService.createMany).toHaveBeenCalled();
       expect(result).toEqual('value');
+    });
+  });
+  describe('loadCsvFilePath', () => {
+    it('it returns csv file path if file exist', async () => {
+      fs.existsSync.mockReturnValue(true);
+      const result = appService.loadCsvFilePath('/data/data.csv');
+      expect(result).toBeTruthy();
+    });
+    it('it returns null if csv file does not exist', async () => {
+      fs.existsSync.mockReturnValue(false);
+      const result = appService.loadCsvFilePath('/data/data1.csv');
+      console.log(result);
+      expect(result).toBeNull();
     });
   });
 });
