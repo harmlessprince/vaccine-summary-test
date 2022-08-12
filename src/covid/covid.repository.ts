@@ -6,7 +6,7 @@ import {
   convertISoWeekStringDateToDate,
   getYearAndWeekFromIsoString,
   getYearAndWeekFromDate,
-} from 'src/utils/helper';
+} from '../utils/helper';
 import { Covid } from './covid';
 import { CovidDataDto } from './covid.data.dto';
 import { CovidDataFilterDto } from './covid.data.filter.dto';
@@ -74,7 +74,7 @@ export class CovidRepository {
           },
         ])
         .exec();
- console.log(response)
+      //  console.log(response)
       if (response.length > 0) {
         covidDataOutput.push({
           weekStart: getYearAndWeekFromDate(weekStart).isoString,
@@ -89,7 +89,7 @@ export class CovidRepository {
     }
     return covidDataOutput;
   }
-  sortData(sortValue: string, covidDataOutput) {
+  private sortData(sortValue: string, covidDataOutput) {
     if (sortValue.startsWith('NumberDosesReceived')) {
       if (sortValue.endsWith('[descending]')) {
         this.sortByNumberDosesReceived(covidDataOutput, OrderBy.DESC);
@@ -107,7 +107,7 @@ export class CovidRepository {
       }
     }
   }
-  sortByNumberDosesReceived(
+  private sortByNumberDosesReceived(
     covidOutputData: CovidDataOutputDto[],
     orderBy: string,
   ) {
@@ -122,7 +122,10 @@ export class CovidRepository {
       return 0;
     });
   }
-  sortByWeekStart(covidOutputData: CovidDataOutputDto[], orderBy: string) {
+  private sortByWeekStart(
+    covidOutputData: CovidDataOutputDto[],
+    orderBy: string,
+  ) {
     return covidOutputData.sort((a, b) => {
       if (orderBy == OrderBy.ASC) {
         return a.weekStart.localeCompare(b.weekStart);

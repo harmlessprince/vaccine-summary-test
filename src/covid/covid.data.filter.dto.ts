@@ -1,6 +1,6 @@
 import { IsDefined, IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString } from 'class-validator';
-import { DateToIsBiggerThanDateFrom } from 'src/decorators/dateToIsBiggerThanDateFrom';
-import { IsValidISOWeekDate } from 'src/decorators/IsValidISOWeekDate';
+import { DateToIsBiggerThanDateFrom } from '../decorators/dateToIsBiggerThanDateFrom';
+import { IsValidISOWeekDate } from '../decorators/IsValidISOWeekDate';
 
 //https://regex-generator.olafneumann.org/
 //https://regexr.com/

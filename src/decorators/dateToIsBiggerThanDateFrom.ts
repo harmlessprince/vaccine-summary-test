@@ -6,7 +6,7 @@ import {
   ValidatorConstraintInterface,
 } from 'class-validator';
 import * as moment from 'moment';
-import { convertISoWeekStringDateToDate } from 'src/utils/helper';
+import { convertISoWeekStringDateToDate } from '../utils/helper';
 export function DateToIsBiggerThanDateFrom(
   property: string,
   validationOptions?: ValidationOptions,

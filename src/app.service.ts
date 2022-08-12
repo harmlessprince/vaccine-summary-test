@@ -7,7 +7,7 @@ import { CovidDataDto } from './covid/covid.data.dto';
 import { getDateFromWeek, getYearAndWeekFromIsoString } from './utils/helper';
 import { CovidDataFilterDto } from './covid/covid.data.filter.dto';
 @Injectable()
-export class AppService {
+export class  AppService {
   constructor(private readonly covidRepository: CovidRepository) {}
   getHello(): string {
     return 'Hello World!';
@@ -16,7 +16,7 @@ export class AppService {
     return await this.covidRepository.findCovidData(filter);
   }
 
-  async seedDatabase() {
+  async seedDatabase(): Promise<{total: number}> {
     //construct file path
     const dataFilePath = __dirname + '/data/data.csv';
     var arrayToInsert = [];

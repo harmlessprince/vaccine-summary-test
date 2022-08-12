@@ -1,6 +1,7 @@
 import { Controller, Get, Query, ValidationPipe } from '@nestjs/common';
 import { AppService } from './app.service';
 import { CovidDataFilterDto } from './covid/covid.data.filter.dto';
+import { CovidDataOutputDto } from './covid/covid.data.output.dto';
 
 @Controller()
 export class AppController {
@@ -11,12 +12,16 @@ export class AppController {
     return 'Hello world';
   }
   @Get('/seed')
-  async seedData() {
-    const response = await this.appService.seedDatabase();
+  async seedData(): Promise<{
+    success: boolean;
+    message: string;
+    total: number;
+  }> {
+    const {total} = await this.appService.seedDatabase();
     return {
       success: true,
-      message: 'Database seeded successfully with ' + response.total + ' data',
-      total: response.total,
+      message: 'Database seeded successfully with ' + total + ' data',
+      total: total,
     };
   }
   @Get('/vaccine-summary')
@@ -30,7 +35,7 @@ export class AppController {
       }),
     )
     filter: CovidDataFilterDto,
-  ) {
+  ): Promise<{ summary: CovidDataOutputDto[] }> {
     const response = await this.appService.getCovidDataSummary(filter);
     return { summary: response };
   }
