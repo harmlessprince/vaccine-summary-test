@@ -74,8 +74,8 @@ export class CovidRepository {
           },
         ])
         .exec();
-
-      if (response[0]?.NumberDosesReceived > 0) {
+ console.log(response)
+      if (response.length > 0) {
         covidDataOutput.push({
           weekStart: getYearAndWeekFromDate(weekStart).isoString,
           weekEnd: getYearAndWeekFromDate(weekEnd).isoString,
