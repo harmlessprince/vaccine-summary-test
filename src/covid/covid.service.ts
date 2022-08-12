@@ -26,7 +26,7 @@ export class CovidService {
     try {
       //this will drop collection if it exists
       //this is to avoid multiple data insert
-      await this.covidModel.db.dropCollection('covids');
+      await this.covidModel.deleteMany({});
       //the data will be inserted into the database
       return await this.covidModel.insertMany(covidData);
     } catch (error) {

@@ -1,4 +1,3 @@
-import { NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppService } from './app.service';
 import { CovidDataFilterDto } from './covid/covid.data.filter.dto';

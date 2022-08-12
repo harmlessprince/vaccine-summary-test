@@ -30,6 +30,7 @@
     "class-validator": "^0.13.2",
     "csvtojson": "^2.0.10",
     "moment": "^2.29.4",
+    "mongodb-memory-server": "^8.8.0",
     "mongoose": "^6.5.1",
     "nest-csv-parser": "^2.0.4",
     "reflect-metadata": "^0.1.13",
