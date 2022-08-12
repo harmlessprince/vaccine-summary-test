@@ -13,7 +13,7 @@ import { CovidDataFilterDto } from './covid.data.filter.dto';
 import { CovidDataOutputDto } from './covid.data.output.dto';
 
 @Injectable()
-export class CovidRepository {
+export class CovidService {
   constructor(
     @InjectModel('Covid') private readonly covidModel: Model<Covid>,
   ) {}

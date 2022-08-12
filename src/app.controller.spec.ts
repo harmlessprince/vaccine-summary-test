@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 
 const mockAppService = () => ({
   seedDatabase: jest.fn().mockReturnValue(seedDataStubResponse()),
+  getCovidDataSummary: jest.fn()
 });
 describe('AppController', () => {
   let appController: AppController;
@@ -29,6 +30,20 @@ describe('AppController', () => {
   });
   describe('seedDatabase', () => {
     it('call seedDatabase from app service', async () => {
+      // @ts-ignore seedDatabase is a mock for testing purposes
+      appService.seedDatabase.mockResolvedValue({ total: 4 });
+      expect(appService.seedDatabase).not.toHaveBeenCalled();
+
+      const result = await appService.seedDatabase();
+      expect(appService.seedDatabase).toHaveBeenCalled();
+      expect(result).toEqual({ total: 4 });
+    });
+    it('should send response after seeding database', async () => {
+      expect(await appController.seedData()).toMatchObject(seedDataStubResponse());
+    });
+  });
+  describe('vaccineSummary', () => {
+    it('call getCovidDataSummary from app service', async () => {
       // @ts-ignore seedDatabase is a mock for testing purposes
       appService.seedDatabase.mockResolvedValue({ total: 4 });
       expect(appService.seedDatabase).not.toHaveBeenCalled();

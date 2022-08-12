@@ -1,19 +1,19 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import * as fs from 'fs';
-import { CovidRepository } from './covid/covid.repository';
+import { CovidService } from './covid/covid.service';
 const csvtojsonV2 = require('csvtojson/v2');
 import { CovidDataDto } from './covid/covid.data.dto';
 import { getDateFromWeek, getYearAndWeekFromIsoString } from './utils/helper';
 import { CovidDataFilterDto } from './covid/covid.data.filter.dto';
 @Injectable()
 export class  AppService {
-  constructor(private readonly covidRepository: CovidRepository) {}
+  constructor(private readonly covidService: CovidService) {}
   getHello(): string {
     return 'Hello World!';
   }
   async getCovidDataSummary(filter: CovidDataFilterDto) {
-    return await this.covidRepository.findCovidData(filter);
+    return await this.covidService.findCovidData(filter);
   }
 
   async seedDatabase(): Promise<{total: number}> {
@@ -57,7 +57,7 @@ export class  AppService {
             arrayToInsert.push(newEntity);
           }
           //pass constructed data to covid repository
-          await this.covidRepository.createMany(arrayToInsert);
+          await this.covidService.createMany(arrayToInsert);
         });
     } else {
       throw new NotFoundException('Csv file not found');
