@@ -1,0 +1,45 @@
+version: '3.9'
+services:
+#Node API Service
+  app:
+    container_name: server-dev
+    image: server-dev:1.0.0
+    build:
+      context: .
+      target: development
+      dockerfile: ./Dockerfile
+    command: npm run start:debug
+    ports:
+      - 4000:3000
+      - 9229:9229
+    networks:
+      - server-network
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
+    depends_on:
+      - mongo_db
+    environment:
+      PORT: 3000
+      MONGO_URL: mongodb://mongo_db:27017/vaccine-summary 
+  #MongoDB Service
+  mongo_db:
+    image: mongo:5.0.0
+    container_name: server-mongodb
+    volumes:
+      - mongo_db:/data/db
+    networks: 
+      - server-network
+    ports:
+      - 27018:27017
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo localhost:27018/test --quiet
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+volumes:
+  mongo_db: {}
+networks:
+  server-network:
