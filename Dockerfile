@@ -1,4 +1,5 @@
-FROM node:14.15 AS development
+### DEV Environmental Science  ###
+FROM node:14.17.3 AS development
 
 #  Navigate to the container working directory 
 WORKDIR /usr/src/app
@@ -6,6 +7,8 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 RUN npm install glob rimraf
-RUN npm install
+RUN npm ci
 COPY . .
 RUN npm run build
+
+CMD ["npm", "start:dev"]
