@@ -2,7 +2,7 @@ import { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 @Schema()
-class CovidDocument {
+export class Covid extends Document{
   @Prop({
     index: true,
   })
@@ -58,5 +58,5 @@ class CovidDocument {
   @Prop()
   Denominator: number;
 }
-export type Covid = CovidDocument & Document;
-export const CovidSchema = SchemaFactory.createForClass(CovidDocument);
+// export type Covid = CovidDocument & Document;
+export const CovidSchema = SchemaFactory.createForClass(Covid);

@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { CovidSchema } from './covid';
+import { Covid, CovidSchema } from './covid';
 import { CovidService } from './covid.service';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: 'Covid', schema: CovidSchema }]),
+    MongooseModule.forFeature([{ name: Covid.name, schema: CovidSchema }]),
   ],
-  providers:[CovidService],
-  exports:[CovidService]
+  providers: [CovidService],
+  exports: [CovidService],
 })
 export class CovidModule {}

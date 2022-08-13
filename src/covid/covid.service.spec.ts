@@ -17,12 +17,12 @@ describe('CovidService', () => {
     mongod = await MongoMemoryServer.create();
     const uri = mongod.getUri();
     mongoConnection = (await connect(uri)).connection;
-    covidModel = mongoConnection.model('Covid', CovidSchema);
+    covidModel = mongoConnection.model(Covid.name, CovidSchema);
     const app = await Test.createTestingModule({
       providers: [
         CovidService,
         {
-          provide: getModelToken('Covid'),
+          provide: getModelToken(Covid.name),
           useValue: covidModel,
         },
       ],
