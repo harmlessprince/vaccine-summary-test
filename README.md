@@ -16,7 +16,7 @@ A mini Rest API endpoint that provides report on covid vaccine distribution summ
 
 ## How it works
   - Seed databased using the seed endpoint (Please this takes some couple of minutes due to weight of data)
-  - Visit /vaccine-summary by supplying the neccesary filters to get summary of report.
+  - Visit /vaccine-summary by supplying the necessary filters to get summary of report.
 
 
 ## Technology Stack
