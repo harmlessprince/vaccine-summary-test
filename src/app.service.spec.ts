@@ -7,11 +7,9 @@ import {
   CovidDataOutputStub,
   CovidDataStub,
 } from './test-stubs/covid.data.stubs';
-// import csvtojsonV2 from 'csvtojson/v2';
 const fs = require('fs');
 
 jest.mock('fs');
-// jest.mock('csvtojsonV2')
 const mockCovidService = () => ({
   createMany: jest.fn(),
 
@@ -78,7 +76,6 @@ describe('AppService', () => {
     it('it returns null if csv file does not exist', async () => {
       fs.existsSync.mockReturnValue(false);
       const result = appService.loadCsvFilePath('/data/data1.csv');
-      console.log(result);
       expect(result).toBeNull();
     });
   });
