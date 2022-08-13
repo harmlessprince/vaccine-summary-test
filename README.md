@@ -100,7 +100,7 @@ These instructions will get you a copy of the project up and running on your loc
 ## Author
  Name: Adewuyi Taofeeq <br>
  Email: realolamilekan@gmail.com <br>
- LinkenIn:  <a href="#license">Adewuyi Taofeeq Olamikean</a> <br>
-
+ LinkenIn:  <a href="https://www.linkedin.com/in/adewuyi-taofeeq-olamilekan/">Adewuyi Taofeeq Olamikean</a> <br>
+Website: [OLATEEQUE](https://taofeeq.netlify.app/)
 ## License
 ISC
