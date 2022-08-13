@@ -10,7 +10,7 @@ import { CovidModule } from './covid/covid.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    MongooseModule.forRoot(process.env.DATABASE_URL,  { useNewUrlParser: true }),
+    MongooseModule.forRoot(process.env.MONGO_URL,  { useNewUrlParser: true }),
     CsvModule,
     CovidModule
   ],

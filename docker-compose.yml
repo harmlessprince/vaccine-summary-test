@@ -5,6 +5,9 @@ services:
     container_name: server-dev
     image: server-dev:1.0.0
     build:
+      args:
+        user: ${USER}
+        uid: 1000
       context: .
       target: development
       dockerfile: ./Dockerfile
@@ -16,7 +19,6 @@ services:
       - server-network
     volumes:
       - .:/usr/src/app
-      - /usr/src/app/node_modules
     restart: unless-stopped
     depends_on:
       - mongo_db
@@ -34,7 +36,7 @@ services:
     ports:
       - 27018:27017
     healthcheck:
-      test: echo 'db.runCommand("ping").ok' | mongo localhost:27018/test --quiet
+      test: echo 'db.runCommand("ping").ok' | mongo localhost:27017/test --quiet
       interval: 30s
       timeout: 10s
       retries: 3
